@@ -1,0 +1,47 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       pointVectorField;
+    object      pointDisplacement;
+}
+
+dimensions      [0 1 0 0 0 0 0];
+
+internalField   uniform (0 0 0);
+
+boundaryField
+{
+    interface
+    {
+        type            fixedValue;
+        value           uniform (0 0 0);
+    }
+	inlet
+	{
+		type    fixedNormalSlip;
+		n       (1 0 0);          // unit normal pointing out of the domain
+		value   uniform (0 0 0);  // normal displacement fixed = 0
+	}
+
+	outlet
+	{
+		type    fixedNormalSlip;
+		n       (1 0 0);          // sign doesn’t matter for projection
+		value   uniform (0 0 0);
+	}
+    symmetryXY
+    {
+        type         symmetry;
+    }
+    symmetryXZ
+    {
+        type         symmetry;
+    }
+    defaultFaces
+    {
+        type            empty;
+    }
+}
+
+// ************************************************************************* //

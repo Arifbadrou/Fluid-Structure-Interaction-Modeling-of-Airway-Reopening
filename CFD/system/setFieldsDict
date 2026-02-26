@@ -1,0 +1,71 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2312                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volScalarFieldValue alpha.water 1
+);
+
+regions
+(
+	
+	cylinderToCell
+    {
+        p1 (0 0 0);  // Start point of the cylinder axis
+        p2 (0.016 0 0);   // End point of the cylinder axis
+        radius 0.0019;          // Radius of the cylinder
+        fieldValues
+        (
+            volScalarFieldValue alpha.water 0
+        );
+    }
+	
+	sphereToCell
+    {
+        centre (0.016 0.000 0);  // Start point of the cylinder axis
+        radius 0.0019;          // Radius of the cylinder
+        fieldValues
+        (
+            volScalarFieldValue alpha.water 0
+        );
+    }
+	
+	cylinderToCell
+    {
+        p1 (0.0218 0.000 0);  // Start point of the cylinder axis
+        p2 (0.0378 0.000 0.0);   // End point of the cylinder axis
+        radius 0.0019;          // Radius of the cylinder
+        fieldValues
+        (
+            volScalarFieldValue alpha.water 0
+        );
+    }
+	
+	sphereToCell
+    {
+        centre (0.0218 0.000 0);;  // Start point of the cylinder axis
+        radius 0.0019;          // Radius of the cylinder
+        fieldValues
+        (
+            volScalarFieldValue alpha.water 0
+        );
+    }
+	
+);
+
+
+// ************************************************************************* //

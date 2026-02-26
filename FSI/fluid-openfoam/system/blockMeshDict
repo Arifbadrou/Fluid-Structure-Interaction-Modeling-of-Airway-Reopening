@@ -1,0 +1,88 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+
+vertices
+(
+
+    (0 0 0) // 0
+    (0 0.00099904822 -0.00004361938) // 1
+    (0.021 0.00099904822 -0.00004361938) // 2
+    (0.021 0 0) // 3
+    (0 0.00099904822 0.00004361938) // 4
+    (0.021 0.00099904822 0.00004361938) // 5
+
+);
+ 
+blocks
+(
+	hex (0 3 2 1 0 3 5 4) (420 20 1) simpleGrading (1 1 1)
+);
+
+edges
+(
+    arc 1 4 (0 0.001 0)  // Midpoint for smooth curvature
+    arc 2 5 (0.021 0.001 0) // Midpoint for smooth curvature
+);
+
+boundary
+(
+     back
+     { 
+           type wedge;
+           faces  
+           (
+               (0 3 2 1)
+           );
+      }
+     front
+     { 
+           type wedge;
+           faces  
+           (
+               (0 4 5 3)
+           );
+      }
+     interface
+     { 
+           type wall;
+           faces  
+           (
+               (1 2 5 4)
+           );
+      }
+     inlet
+     { 
+		   type patch;
+           faces  
+           (
+               (0 4 1 0)
+           );
+      }
+     outlet
+     { 
+		   type patch;
+           faces   
+           (
+               (3 2 5 3)
+           );
+      }
+     axis
+     { 
+           type empty;
+           faces  
+           (
+               (0 3 3 0)
+           );
+      }
+);
+ 
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

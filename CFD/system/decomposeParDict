@@ -1,0 +1,61 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      decomposeParDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+numberOfSubdomains 4;  // Number of processors to use
+
+method          scotch;  // Decomposition method: scotch, simple, hierarchical, etc.
+
+constraints
+{
+    patches
+    {
+        type    preservePatches;
+        patches (inlet outlet);
+        enabled true;
+    }
+}
+
+simpleCoeffs
+{
+    n               (4 1 1);  // Number of subdomains in (x, y, z)
+    delta           0.001;    // Small offset to avoid zero volume cells
+}
+
+hierarchicalCoeffs
+{
+    n               (4 1 1);  // Number of subdomains in (x, y, z)
+    delta           0.001;    // Small offset
+    order           xyz;      // Decomposition order: xyz, yxz, zxy, etc.
+}
+
+manualCoeffs
+{
+    dataFile        "cellDecomposition";  // Optional file for manual decomposition
+}
+
+distributed     no;  // Set to yes if using distributed computing (e.g., across multiple nodes)
+
+roots           ( );  // Paths for each processor if distributed is set to yes
+
+// Additional options for scotch
+scotchCoeffs
+{
+    processorWeights (1 1 1 1);  // Assign equal weights to all processors
+}
+
+// ************************************************************************* //
+

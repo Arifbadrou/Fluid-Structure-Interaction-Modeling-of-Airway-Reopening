@@ -1,0 +1,41 @@
+*INCLUDE, INPUT=all.nam
+*INCLUDE, INPUT=fix.nam
+*INCLUDE, INPUT=interface.nam
+*INCLUDE, INPUT=top.nam
+*INCLUDE, INPUT=symmetry.nam
+*MATERIAL, Name=EL
+*HYPERELASTIC, NEO HOOKE
+**200, 1e-6
+833.33, 1e-6
+*DENSITY
+ 1000
+*SOLID SECTION, Elset=Eall, Material=EL
+*STEP, INC=1000000
+*DYNAMIC,SOLVER=PARDISO, ALPHA=-0.10, DIRECT
+0.000004, 1.0
+**RESTART,WRITE,FREQUENCY=1
+*BOUNDARY
+inlet, 1
+*BOUNDARY
+outlet, 1
+*CLOAD
+ Ninterface, 1, 0.0
+ Ninterface, 2, 0.0
+ Ninterface, 3, 0.0
+*CLOAD
+ top, 1, 0.0
+ top, 2, 0.0
+ top, 3, 0.0
+*BOUNDARY
+symmetryXY, 3
+*BOUNDARY
+symmetryXZ, 2
+**NODE FILE
+** U
+**EL FILE
+** S, E
+**NODE PRINT
+** U
+**EL PRINT
+** S, E
+*END STEP
